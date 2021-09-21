@@ -1,6 +1,8 @@
 package com.fogwill.DisneyWorld.models;
 
-//import java.util.ArrayList;
+import java.util.List;
+
+import java.util.ArrayList;
 
 import javax.persistence.*;
 
@@ -16,9 +18,9 @@ public class Genre {
     private String name;
     private String image;
 
-    /*@OneToMany(mappedBy = "genre")
-    private ArrayList<Film> associatedFilms;
-*/
+    @OneToMany(mappedBy = "genre")
+    private List<Film> associatedFilms=new ArrayList<Film>();
+
 
     public Long getId() {
         return this.id;
@@ -45,13 +47,13 @@ public class Genre {
         this.image = image;
     }
 
-    /*public ArrayList<Film> getAssociatedFilms() {
+    public List<Film> getAssociatedFilms() {
         return this.associatedFilms;
     }
 
-    public void setAssociatedFilms(ArrayList<Film> associatedFilms) {
+    public void setAssociatedFilms(List<Film> associatedFilms) {
         this.associatedFilms = associatedFilms;
-    }*/
+    }
 
 
     
