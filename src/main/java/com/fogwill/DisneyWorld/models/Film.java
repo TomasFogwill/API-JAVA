@@ -20,9 +20,9 @@ public class Film {
     private LocalDate date;
     private int calification;
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "genre_id")
-    private Genre genre;*/
+    private Genre genre;
     
     @ManyToMany(mappedBy = "filmography")
     private Set<CharacterModel> associatedCharacters=new HashSet<>();
