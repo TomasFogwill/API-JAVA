@@ -1,7 +1,6 @@
 package com.fogwill.DisneyWorld.controllers;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import com.fogwill.DisneyWorld.models.CharacterModel;
 import com.fogwill.DisneyWorld.services.CharacterService;
@@ -31,11 +30,11 @@ public class CharacterController {
     }
 
     @GetMapping("/query")
-    public Optional<CharacterModel> getCharacterByName(@RequestParam("name") String name){
+    public ArrayList<CharacterModel> getCharacterByName(@RequestParam("name") String name){
         return this.characterService.getByName(name);
     }
 
-    @GetMapping("/query")
+    /*@GetMapping("/query")
     public ArrayList<CharacterModel> getCharacterByAge(@RequestParam("age") int age){
         return this.characterService.getByAge(age);
     }
@@ -43,7 +42,7 @@ public class CharacterController {
     @GetMapping("/query")
     public ArrayList<CharacterModel> getCharacterByWeight(@RequestParam("weight") float weight){
         return this.characterService.getByWeight(weight);
-    }
+    }*/
 
     
 }
