@@ -25,7 +25,7 @@ public class CharacterService {
         return characterRepository.findByName(name);
     }
 
-    public ArrayList<CharacterModel> getByAge(int age){
+    public ArrayList<CharacterModel> getByAge(Integer age){
         return characterRepository.findByAge(age);
     }
 
