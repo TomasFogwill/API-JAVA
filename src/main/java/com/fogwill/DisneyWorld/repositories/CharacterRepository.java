@@ -17,6 +17,6 @@ public interface CharacterRepository extends CrudRepository<CharacterModel, Long
 
     public abstract ArrayList<CharacterModel> findByWeight(float weight);
 
-    @Query(value = "SELECT image,name FROM characters",nativeQuery = true)
-    public abstract ArrayList<CharacterModel> getNameAndImage();
+    @Query(value = "SELECT image,name FROM disney_character",nativeQuery = true)
+    public ArrayList<Object[]> getNameAndImage();
 }

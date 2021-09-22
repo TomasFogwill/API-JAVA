@@ -20,7 +20,7 @@ public class CharacterController {
     CharacterService characterService;
 
     @GetMapping
-    public ArrayList<CharacterModel> getCharacterModels(){
+    public ArrayList<Object[]> getCharacterModels(){
      return characterService.getCharacters();   
     }
 

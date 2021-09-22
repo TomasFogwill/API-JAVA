@@ -13,8 +13,8 @@ public class CharacterService {
     @Autowired
     CharacterRepository characterRepository;
 
-    public ArrayList<CharacterModel> getCharacters(){
-        return (ArrayList<CharacterModel>)characterRepository.findAll();
+    public ArrayList<Object[]> getCharacters(){
+        return (ArrayList<Object[]>)characterRepository.getNameAndImage();
     }
     
     public CharacterModel saveCharacter(CharacterModel character){
