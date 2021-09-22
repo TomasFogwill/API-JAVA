@@ -12,8 +12,8 @@ public interface CharacterRepository extends CrudRepository<CharacterModel, Long
 
     public abstract ArrayList<CharacterModel> findByName(String name);
 
-//    public abstract ArrayList<CharacterModel> findByAge(int age);
+    public abstract ArrayList<CharacterModel> findByAge(int age);
 
-  //  public abstract ArrayList<CharacterModel> findByWeight(float weight);
+    public abstract ArrayList<CharacterModel> findByWeight(float weight);
 
 }

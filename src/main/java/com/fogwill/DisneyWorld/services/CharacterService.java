@@ -25,13 +25,13 @@ public class CharacterService {
         return characterRepository.findByName(name);
     }
 
-    /*public ArrayList<CharacterModel> getByAge(int age){
+    public ArrayList<CharacterModel> getByAge(int age){
         return characterRepository.findByAge(age);
     }
 
     public ArrayList<CharacterModel> getByWeight(float weight){
         return characterRepository.findByWeight(weight);
-    }*/
+    }
 
 
    

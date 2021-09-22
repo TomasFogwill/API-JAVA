@@ -30,19 +30,21 @@ public class CharacterController {
     }
 
     @GetMapping("/query")
-    public ArrayList<CharacterModel> getCharacterByName(@RequestParam("name") String name){
-        return this.characterService.getByName(name);
+    public ArrayList<CharacterModel> getCharacterByName (
+        @RequestParam(name ="name", required = false, defaultValue = "null") String name,
+        @RequestParam(name="age", required = false, defaultValue = "0") int age,
+        @RequestParam(name = "weight", required = false, defaultValue = "0") float weight){
+            ArrayList<CharacterModel> array= new ArrayList<>();
+            if(name != null && age == 0 && weight == 0){
+                array=this.characterService.getByName(name);
+            }if(name == null && age != 0 && weight == 0){
+                array = this.characterService.getByAge(age);
+            }if(name == null && age == 0 && weight != 0){
+                array = this.characterService.getByWeight(weight);
+            }
+        return array;
     }
 
-    /*@GetMapping("/query")
-    public ArrayList<CharacterModel> getCharacterByAge(@RequestParam("age") int age){
-        return this.characterService.getByAge(age);
-    }
-
-    @GetMapping("/query")
-    public ArrayList<CharacterModel> getCharacterByWeight(@RequestParam("weight") float weight){
-        return this.characterService.getByWeight(weight);
-    }*/
-
+    
     
 }
