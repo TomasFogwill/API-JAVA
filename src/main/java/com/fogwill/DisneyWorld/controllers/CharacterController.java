@@ -28,23 +28,21 @@ public class CharacterController {
     public CharacterModel saveFilm(@RequestBody CharacterModel character){
         return this.characterService.saveCharacter(character);
     }
-
-    @GetMapping("/query")
-    public ArrayList<CharacterModel> getCharacterBy (
-        @RequestParam(name ="name", required = false) String name,
-        @RequestParam(name="age", required = false, defaultValue = "0") Integer age,
-        @RequestParam(name = "weight", required = false, defaultValue = "0") float weight){
-            ArrayList<CharacterModel> array= new ArrayList<>();
-            if(name!=null && age == 0 && weight == 0){
-                  array=this.characterService.getByName(name);
-            }
-            if(name==null && age != 0 && weight == 0){
-                array = this.characterService.getByAge(age);
-            }if(name==null && age == 0 && weight != 0){
-                array = this.characterService.getByWeight(weight);
-            }
-        return array;
-    }
     
+    @GetMapping(params = "name")
+    public ArrayList<CharacterModel> getCharacterByName (@RequestParam String name){
+        return this.characterService.getByName(name);
+    }
+
+    @GetMapping(params = "age")
+    public ArrayList<CharacterModel> getCharacterByAge (@RequestParam Integer age){
+        return this.characterService.getByAge(age);
+    }
+
+    @GetMapping(params = "weight")
+    public ArrayList<CharacterModel> getCharacterByWeight (@RequestParam float weight){
+        return this.characterService.getByWeight(weight);
+    }
+        
     
 }

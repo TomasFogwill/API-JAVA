@@ -28,20 +28,6 @@ public class CharacterModel {
     )
     private Set<Film> filmography=new HashSet<Film>();
 
-    public CharacterModel(){
-
-    }
-    
-
-    public CharacterModel(String image, String name, int age, float weight, String story) {
-        this.image = image;
-        this.name = name;
-        this.age = age;
-        this.weight = weight;
-        this.story = story;
-    }
-
-
     public Long getId() {
         return id;
     }
