@@ -14,7 +14,7 @@ public class CharacterService {
     CharacterRepository characterRepository;
 
     public ArrayList<Object[]> getCharacters(){
-        return (ArrayList<Object[]>)characterRepository.getNameAndImage();
+        return (ArrayList<Object[]>)characterRepository.getAllNameAndImage();
     }
     
     public CharacterModel saveCharacter(CharacterModel character){

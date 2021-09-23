@@ -6,20 +6,22 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.*;
 
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Entity
-@Table(name = "film")
-public class Film {
+@Table(name = "movie")
+public class Movie {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
     
-    private String name;
+    private String image;
     private String title;
     private LocalDate date;
-    private int calification;
+    private float calification;
 
     @ManyToOne
     @JoinColumn(name = "genre_id")
@@ -39,12 +41,12 @@ public class Film {
     }
 
 
-    public String getName() {
-        return this.name;
+    public String getImage() {
+        return this.image;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getTitle() {
@@ -63,11 +65,11 @@ public class Film {
         this.date = date;
     }
 
-    public int getCalification() {
+    public float getCalification() {
         return this.calification;
     }
 
-    public void setCalification(int calification) {
+    public void setCalification(float calification) {
         this.calification = calification;
     }
 

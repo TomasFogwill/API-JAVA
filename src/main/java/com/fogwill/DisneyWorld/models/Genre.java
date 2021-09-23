@@ -19,7 +19,7 @@ public class Genre {
     private String image;
 
     @OneToMany(mappedBy = "genre")
-    private List<Film> associatedFilms=new ArrayList<Film>();
+    private List<Movie> associatedMovies=new ArrayList<Movie>();
 
 
     public Long getId() {
@@ -47,12 +47,12 @@ public class Genre {
         this.image = image;
     }
 
-    public List<Film> getAssociatedFilms() {
-        return this.associatedFilms;
+    public List<Movie> getAssociatedMovies() {
+        return this.associatedMovies;
     }
 
-    public void setAssociatedFilms(List<Film> associatedFilms) {
-        this.associatedFilms = associatedFilms;
+    public void setAssociatedFilms(List<Movie> associatedMovies) {
+        this.associatedMovies = associatedMovies;
     }
 
 

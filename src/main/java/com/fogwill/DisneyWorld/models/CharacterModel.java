@@ -5,6 +5,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Entity
 @Table(name = "disney_character")
 public class CharacterModel {
@@ -22,11 +25,11 @@ public class CharacterModel {
 
     @ManyToMany  
     @JoinTable(
-        name = "film_characters",
+        name = "movie_characters",
         joinColumns = @JoinColumn(name = "character_id"),
-        inverseJoinColumns = @JoinColumn(name = "film_id")
+        inverseJoinColumns = @JoinColumn(name = "movie_id")
     )
-    private Set<Film> filmography=new HashSet<Film>();
+    private Set<Movie> filmography=new HashSet<Movie>();
 
     public Long getId() {
         return id;
@@ -77,11 +80,11 @@ public class CharacterModel {
         this.story = story;
     }
 
-    public Set<Film> getFilmography() {
+    public Set<Movie> getFilmography() {
         return this.filmography;
     }
 
-    public void setFilmography(HashSet<Film> filmography) {
+    public void setFilmography(HashSet<Movie> filmography) {
         this.filmography = filmography;
     }
 
