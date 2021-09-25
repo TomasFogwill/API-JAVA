@@ -1,6 +1,7 @@
 package com.fogwill.DisneyWorld.services;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.fogwill.DisneyWorld.models.CharacterModel;
 import com.fogwill.DisneyWorld.repositories.CharacterRepository;
@@ -31,6 +32,23 @@ public class CharacterService {
 
     public ArrayList<CharacterModel> getByWeight(float weight){
         return characterRepository.findByWeight(weight);
+    }
+
+    public Optional<CharacterModel> getById(Long id){
+        return characterRepository.findById(id);
+    }
+
+    public ArrayList<CharacterModel> getByMovie(Long id){
+        return characterRepository.getByMovieID(id);
+    }
+
+    public boolean deleteCharacter(Long id){
+        try{
+            characterRepository.deleteById(id);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 
 

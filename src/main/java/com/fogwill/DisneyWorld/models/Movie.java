@@ -6,9 +6,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fogwill.DisneyWorld.views.Views;
 
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Entity
 @Table(name = "movie")
 public class Movie {
@@ -16,18 +16,28 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
+    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class})
     private Long id;
     
+    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class})
     private String image;
+
+    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class})
     private String title;
+
+    @JsonView({Views.CharacterInternal.class,Views.MoviePublic.class})
     private LocalDate date;
+
+    @JsonView({Views.CharacterInternal.class,Views.MoviePublic.class})
     private float calification;
 
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
     
+      
     @ManyToMany(mappedBy = "filmography")
+    @JsonView(Views.MoviePublic.class)
     private Set<CharacterModel> associatedCharacters=new HashSet<>();
     
 

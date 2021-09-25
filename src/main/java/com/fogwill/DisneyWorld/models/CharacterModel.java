@@ -5,9 +5,12 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fogwill.DisneyWorld.views.Views;
+
+
+
+
 @Entity
 @Table(name = "disney_character")
 public class CharacterModel {
@@ -15,20 +18,31 @@ public class CharacterModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
+    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class})
     private Long id;
 
+    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class})
     private String image;
+
+    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class})
     private String name;
+
+    @JsonView({Views.CharacterPublic.class,Views.MovieInternal.class})
     private int age;
+
+    @JsonView({Views.CharacterPublic.class,Views.MovieInternal.class})
     private float weight;
+
+    @JsonView({Views.CharacterPublic.class,Views.MovieInternal.class})
     private String story;
 
-    @ManyToMany  
+    @ManyToMany 
     @JoinTable(
         name = "movie_characters",
         joinColumns = @JoinColumn(name = "character_id"),
         inverseJoinColumns = @JoinColumn(name = "movie_id")
     )
+    @JsonView(Views.CharacterPublic.class)
     private Set<Movie> filmography=new HashSet<Movie>();
 
     public Long getId() {

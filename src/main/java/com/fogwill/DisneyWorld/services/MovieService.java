@@ -1,6 +1,7 @@
 package com.fogwill.DisneyWorld.services;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.fogwill.DisneyWorld.models.Movie;
 import com.fogwill.DisneyWorld.repositories.MovieRepository;
@@ -31,5 +32,18 @@ public class MovieService {
 
     public ArrayList<Movie> getAllOrderByDateAsc(){
         return (ArrayList<Movie>) movieRepository.OrderByDateAsc();
+    }
+
+    public Optional<Movie> getById(Long id){
+        return movieRepository.findById(id);
+    }
+
+    public boolean deleteMovie(Long id){
+        try{
+            movieRepository.deleteById(id);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 }
