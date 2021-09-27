@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fogwill.DisneyWorld.views.Views;
+
 @Entity
 @Table(name = "genre")
 public class Genre {
@@ -13,12 +16,17 @@ public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
+    @JsonView({Views.MoviePublic.class,Views.GenrePublic.class})
     private Long id;
     
+    @JsonView({Views.MoviePublic.class,Views.GenrePublic.class})
     private String name;
+
+    @JsonView({Views.MoviePublic.class,Views.GenrePublic.class})
     private String image;
 
     @OneToMany(mappedBy = "genre")
+    @JsonView(Views.GenrePublic.class)
     private List<Movie> associatedMovies=new ArrayList<Movie>();
 
 

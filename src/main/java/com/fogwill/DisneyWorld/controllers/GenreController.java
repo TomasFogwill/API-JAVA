@@ -2,8 +2,10 @@ package com.fogwill.DisneyWorld.controllers;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fogwill.DisneyWorld.models.Genre;
 import com.fogwill.DisneyWorld.services.GenreService;
+import com.fogwill.DisneyWorld.views.Views;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +20,13 @@ public class GenreController {
     @Autowired
     GenreService genreService;
 
+    @JsonView(Views.GenrePublic.class)
     @GetMapping
     public ArrayList<Genre> getGenres(){
         return genreService.getGenres();
     }
 
+    @JsonView(Views.GenreInternal.class)
     @PostMapping
     public Genre saveGenre(@RequestBody Genre genre){
         return genreService.saveGenre(genre);

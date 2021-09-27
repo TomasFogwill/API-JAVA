@@ -16,21 +16,22 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class})
+    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class,Views.GenrePublic.class})
     private Long id;
     
-    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class})
+    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class,Views.GenrePublic.class})
     private String image;
 
-    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class})
+    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class,Views.GenrePublic.class})
     private String title;
 
-    @JsonView({Views.CharacterInternal.class,Views.MoviePublic.class})
+    @JsonView({Views.CharacterInternal.class,Views.MoviePublic.class,Views.GenreInternal.class})
     private LocalDate date;
 
-    @JsonView({Views.CharacterInternal.class,Views.MoviePublic.class})
+    @JsonView({Views.CharacterInternal.class,Views.MoviePublic.class,Views.GenreInternal.class})
     private float calification;
 
+    @JsonView(Views.MoviePublic.class)
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;

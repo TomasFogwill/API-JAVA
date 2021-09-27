@@ -17,4 +17,12 @@ public class Views {
     public static class MovieInternal extends MoviePublic{
         
     }
+
+    public static class GenrePublic{
+
+    }
+
+    public static class GenreInternal extends GenrePublic{
+        
+    }
 }

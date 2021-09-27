@@ -42,6 +42,12 @@ public class MovieController {
     }
 
     @JsonView(Views.MoviePublic.class)
+    @GetMapping(params = "genre")
+    public ArrayList<Movie> getMovieByGenreId (@RequestParam Long genre){
+        return this.movieService.getByGenreId(genre);
+    }
+
+    @JsonView(Views.MoviePublic.class)
     @GetMapping(params = "order")
     public ArrayList<Movie> getMoviesOrderByDate(@RequestParam String order){
         ArrayList<Movie> array=new ArrayList<Movie>();

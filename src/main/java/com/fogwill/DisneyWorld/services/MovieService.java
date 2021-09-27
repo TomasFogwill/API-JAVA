@@ -34,6 +34,10 @@ public class MovieService {
         return (ArrayList<Movie>) movieRepository.OrderByDateAsc();
     }
 
+    public ArrayList<Movie> getByGenreId(Long id){
+        return movieRepository.getByGenreId(id);
+    }
+
     public Optional<Movie> getById(Long id){
         return movieRepository.findById(id);
     }
