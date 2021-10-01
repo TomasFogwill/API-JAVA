@@ -1,4 +1,5 @@
 package com.fogwill.DisneyWorld.security.models;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,14 +32,11 @@ public class User {
     @NonNull
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id" ))
-    private Set<Role> roles=new HashSet<>();
-
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
-
 
     public User(String name, String username, String email, String password) {
         this.name = name;
@@ -46,7 +44,6 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
 
     public Long getId() {
         return this.id;
@@ -96,9 +93,4 @@ public class User {
         this.roles = roles;
     }
 
-
-    
-
-   
-    
 }

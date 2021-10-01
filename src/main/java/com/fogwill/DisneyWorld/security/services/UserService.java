@@ -16,19 +16,19 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public Optional<User> getByUsername(String username){
+    public Optional<User> getByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public boolean existsByUsername(String username){
+    public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }
 
-    public boolean existsByEmail(String email){
+    public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
 
-    public void saveUser(User user){
+    public void saveUser(User user) {
         userRepository.save(user);
     }
 }

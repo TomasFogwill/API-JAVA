@@ -5,9 +5,8 @@ import java.util.HashSet;
 
 import javax.validation.constraints.NotBlank;
 
-
 public class NewUser {
-    
+
     @NotBlank
     private String name;
     @NotBlank
@@ -18,7 +17,6 @@ public class NewUser {
     private String password;
 
     private Set<String> roles = new HashSet<>();
-
 
     public String getName() {
         return this.name;

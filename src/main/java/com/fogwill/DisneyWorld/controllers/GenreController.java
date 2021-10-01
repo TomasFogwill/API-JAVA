@@ -23,15 +23,15 @@ public class GenreController {
 
     @JsonView(Views.GenrePublic.class)
     @GetMapping
-    public ArrayList<Genre> getGenres(){
+    public ArrayList<Genre> getGenres() {
         return genreService.getGenres();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @JsonView(Views.GenreInternal.class)
     @PostMapping
-    public Genre saveGenre(@RequestBody Genre genre){
+    public Genre saveGenre(@RequestBody Genre genre) {
         return genreService.saveGenre(genre);
     }
-    
+
 }

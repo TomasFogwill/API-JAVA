@@ -26,57 +26,56 @@ public class CharacterController {
     CharacterService characterService;
 
     @GetMapping
-    public ArrayList<Object[]> getCharacterModels(){
-     return characterService.getCharacters();   
+    public ArrayList<Object[]> getCharacterModels() {
+        return characterService.getCharacters();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @JsonView(Views.CharacterInternal.class)
     @PostMapping
-    public CharacterModel saveFilm(@RequestBody CharacterModel character){
+    public CharacterModel saveFilm(@RequestBody CharacterModel character) {
         return this.characterService.saveCharacter(character);
     }
-  
+
     @JsonView(Views.CharacterPublic.class)
     @GetMapping(params = "name")
-    public ArrayList<CharacterModel> getCharacterByName (@RequestParam String name){
+    public ArrayList<CharacterModel> getCharacterByName(@RequestParam String name) {
         return this.characterService.getByName(name);
     }
 
     @JsonView(Views.CharacterPublic.class)
     @GetMapping(params = "age")
-    public ArrayList<CharacterModel> getCharacterByAge (@RequestParam Integer age){
+    public ArrayList<CharacterModel> getCharacterByAge(@RequestParam Integer age) {
         return this.characterService.getByAge(age);
     }
 
     @JsonView(Views.CharacterPublic.class)
     @GetMapping(params = "weight")
-    public ArrayList<CharacterModel> getCharacterByWeight (@RequestParam float weight){
+    public ArrayList<CharacterModel> getCharacterByWeight(@RequestParam float weight) {
         return this.characterService.getByWeight(weight);
     }
 
     @JsonView(Views.CharacterPublic.class)
     @GetMapping(params = "movies")
-    public ArrayList<CharacterModel> getCharacterByMovie (@RequestParam Long movies){
+    public ArrayList<CharacterModel> getCharacterByMovie(@RequestParam Long movies) {
         return this.characterService.getByMovie(movies);
     }
 
     @JsonView(Views.CharacterPublic.class)
     @GetMapping(path = "/{id}")
-    public Optional<CharacterModel> getCharacterById(@PathVariable("id") Long id){
+    public Optional<CharacterModel> getCharacterById(@PathVariable("id") Long id) {
         return this.characterService.getById(id);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(path = "/{id}")
-    public String deleteById(@PathVariable("id") Long id){
+    public String deleteById(@PathVariable("id") Long id) {
         boolean ok = this.characterService.deleteCharacter(id);
-        if(ok){
+        if (ok) {
             return "Se elimino el personaje de id: " + id;
-        }else{
+        } else {
             return "No se pudo eliminar el personaje de id: " + id;
         }
     }
-        
-    
+
 }

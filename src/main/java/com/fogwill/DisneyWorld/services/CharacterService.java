@@ -14,43 +14,41 @@ public class CharacterService {
     @Autowired
     CharacterRepository characterRepository;
 
-    public ArrayList<Object[]> getCharacters(){
-        return (ArrayList<Object[]>)characterRepository.getAllNameAndImage();
+    public ArrayList<Object[]> getCharacters() {
+        return (ArrayList<Object[]>) characterRepository.getAllNameAndImage();
     }
-    
-    public CharacterModel saveCharacter(CharacterModel character){
+
+    public CharacterModel saveCharacter(CharacterModel character) {
         return characterRepository.save(character);
     }
 
-    public ArrayList<CharacterModel> getByName(String name){
+    public ArrayList<CharacterModel> getByName(String name) {
         return characterRepository.findByName(name);
     }
 
-    public ArrayList<CharacterModel> getByAge(Integer age){
+    public ArrayList<CharacterModel> getByAge(Integer age) {
         return characterRepository.findByAge(age);
     }
 
-    public ArrayList<CharacterModel> getByWeight(float weight){
+    public ArrayList<CharacterModel> getByWeight(float weight) {
         return characterRepository.findByWeight(weight);
     }
 
-    public Optional<CharacterModel> getById(Long id){
+    public Optional<CharacterModel> getById(Long id) {
         return characterRepository.findById(id);
     }
 
-    public ArrayList<CharacterModel> getByMovie(Long id){
+    public ArrayList<CharacterModel> getByMovie(Long id) {
         return characterRepository.getByMovieID(id);
     }
 
-    public boolean deleteCharacter(Long id){
-        try{
+    public boolean deleteCharacter(Long id) {
+        try {
             characterRepository.deleteById(id);
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
-
-   
 }

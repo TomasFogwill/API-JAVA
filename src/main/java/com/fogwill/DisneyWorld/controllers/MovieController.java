@@ -26,60 +26,56 @@ public class MovieController {
     MovieService movieService;
 
     @GetMapping
-    public ArrayList<Object[]> getMovies(){
-     return movieService.getMovies();   
+    public ArrayList<Object[]> getMovies() {
+        return movieService.getMovies();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @JsonView(Views.MovieInternal.class)
     @PostMapping
-    public Movie saveMovie(@RequestBody Movie movie){
+    public Movie saveMovie(@RequestBody Movie movie) {
         return this.movieService.saveMovie(movie);
     }
 
     @JsonView(Views.MoviePublic.class)
     @GetMapping(params = "name")
-    public ArrayList<Movie> getMovieByTitle (@RequestParam String name){
+    public ArrayList<Movie> getMovieByTitle(@RequestParam String name) {
         return this.movieService.getByTitle(name);
     }
 
     @JsonView(Views.MoviePublic.class)
     @GetMapping(params = "genre")
-    public ArrayList<Movie> getMovieByGenreId (@RequestParam Long genre){
+    public ArrayList<Movie> getMovieByGenreId(@RequestParam Long genre) {
         return this.movieService.getByGenreId(genre);
     }
 
     @JsonView(Views.MoviePublic.class)
     @GetMapping(params = "order")
-    public ArrayList<Movie> getMoviesOrderByDate(@RequestParam String order){
-        ArrayList<Movie> array=new ArrayList<Movie>();
-        if(order.equalsIgnoreCase("DESC")){
-            array=this.movieService.getAllOrderByDateDesc();  
-        }else if(order.equalsIgnoreCase("ASC")){
-            array=this.movieService.getAllOrderByDateAsc();         
+    public ArrayList<Movie> getMoviesOrderByDate(@RequestParam String order) {
+        ArrayList<Movie> array = new ArrayList<Movie>();
+        if (order.equalsIgnoreCase("DESC")) {
+            array = this.movieService.getAllOrderByDateDesc();
+        } else if (order.equalsIgnoreCase("ASC")) {
+            array = this.movieService.getAllOrderByDateAsc();
         }
-        return array;   
+        return array;
     }
-
 
     @JsonView(Views.MoviePublic.class)
     @GetMapping(path = "/{id}")
-    public Optional<Movie> getCharacterById(@PathVariable("id") Long id){
+    public Optional<Movie> getCharacterById(@PathVariable("id") Long id) {
         return this.movieService.getById(id);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(path = "/{id}")
-    public String deleteById(@PathVariable("id") Long id){
+    public String deleteById(@PathVariable("id") Long id) {
         boolean ok = this.movieService.deleteMovie(id);
-        if(ok){
+        if (ok) {
             return "Se elimino la pelicula de id: " + id;
-        }else{
+        } else {
             return "No se pudo eliminar la pelicula de id: " + id;
         }
     }
 
-
-
-    
 }

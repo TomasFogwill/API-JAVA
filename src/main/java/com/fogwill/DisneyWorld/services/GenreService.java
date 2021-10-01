@@ -13,12 +13,12 @@ public class GenreService {
     @Autowired
     GenreRepository genreRepository;
 
-    public ArrayList<Genre> getGenres(){
-       return (ArrayList<Genre>) genreRepository.findAll();
+    public ArrayList<Genre> getGenres() {
+        return (ArrayList<Genre>) genreRepository.findAll();
     }
 
-    public Genre saveGenre(Genre genre){
+    public Genre saveGenre(Genre genre) {
         return genreRepository.save(genre);
     }
-    
+
 }

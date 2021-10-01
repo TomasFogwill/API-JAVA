@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role,Long>{
+public interface RoleRepository extends JpaRepository<Role, Long> {
 
-   Optional<Role> findByRoleName(RoleName roleName);    
+   Optional<Role> findByRoleName(RoleName roleName);
 }

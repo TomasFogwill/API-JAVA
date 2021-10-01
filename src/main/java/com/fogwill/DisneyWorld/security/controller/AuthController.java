@@ -40,11 +40,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     @Autowired
-	MailService mailService;
+    MailService mailService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
-    
+
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -58,40 +58,42 @@ public class AuthController {
     JwtProvider jwtProvider;
 
     @PostMapping("/register")
-    public ResponseEntity<?> newUser (@Valid @RequestBody NewUser newUser, BindingResult bindingResult) throws IOException{
-if(bindingResult.hasErrors()){
-    return new ResponseEntity(new Message("campos mal puestos o email inválido"),HttpStatus.BAD_REQUEST);
-}
-if(userService.existsByUsername(newUser.getUsername())){
-    return new ResponseEntity(new Message("ese nombre ya existe"), HttpStatus.BAD_REQUEST);
-}
-if(userService.existsByEmail(newUser.getEmail())){
-    return new ResponseEntity(new Message("ese email ya existe"),HttpStatus.BAD_REQUEST);
-    }
-    User user = new User(newUser.getName(),newUser.getUsername(),newUser.getEmail(),
-                passwordEncoder.encode(newUser.getPassword())); 
-    Set<Role> roles = new HashSet<>(); 
-    roles.add(roleService.getByRoleName(RoleName.ROLE_USER).get());
-    if(newUser.getRoles().contains("admin")){
-        roles.add(roleService.getByRoleName(RoleName.ROLE_ADMIN).get());
-    }
-    user.setRoles(roles);
-    userService.saveUser(user);
-    mailService.sendTextEmail(user.getEmail());
-    return new ResponseEntity(new Message("usuario guardado"), HttpStatus.CREATED);
- }
+    public ResponseEntity<?> newUser(@Valid @RequestBody NewUser newUser, BindingResult bindingResult)
+            throws IOException {
+        if (bindingResult.hasErrors()) {
 
- @PostMapping("/login")
- public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUser loginUser, BindingResult bindingResult){
-    if(bindingResult.hasErrors()){
-        return new ResponseEntity(new Message("campos mal puestos"),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Message("campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
+        }
+        if (userService.existsByUsername(newUser.getUsername())) {
+            return new ResponseEntity<>(new Message("ese nombre ya existe"), HttpStatus.BAD_REQUEST);
+        }
+        if (userService.existsByEmail(newUser.getEmail())) {
+            return new ResponseEntity<>(new Message("ese email ya existe"), HttpStatus.BAD_REQUEST);
+        }
+        User user = new User(newUser.getName(), newUser.getUsername(), newUser.getEmail(),
+                passwordEncoder.encode(newUser.getPassword()));
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getByRoleName(RoleName.ROLE_USER).get());
+        if (newUser.getRoles().contains("admin")) {
+            roles.add(roleService.getByRoleName(RoleName.ROLE_ADMIN).get());
+        }
+        user.setRoles(roles);
+        userService.saveUser(user);
+        mailService.sendTextEmail(user.getEmail());
+        return new ResponseEntity<>(new Message("usuario guardado"), HttpStatus.CREATED);
     }
-    Authentication authentication=
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
-    SecurityContextHolder.getContext().setAuthentication(authentication);
-    String jwt = jwtProvider.generateToken(authentication);
-    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-    JwtDto jwtDto = new JwtDto(jwt,userDetails.getUsername(),userDetails.getAuthorities());
-    return new ResponseEntity(jwtDto, HttpStatus.OK);   
- }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@Valid @RequestBody LoginUser loginUser, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(new Message("campos mal puestos"), HttpStatus.BAD_REQUEST);
+        }
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtProvider.generateToken(authentication);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
+        return new ResponseEntity<JwtDto>(jwtDto, HttpStatus.OK);
+    }
 }

@@ -2,27 +2,27 @@ package com.fogwill.DisneyWorld.views;
 
 public class Views {
 
-    public static class CharacterPublic{
+    public static class CharacterPublic {
 
     }
 
-    public static class CharacterInternal extends CharacterPublic{
-
-    }
-    
-    public static class MoviePublic{
+    public static class CharacterInternal extends CharacterPublic {
 
     }
 
-    public static class MovieInternal extends MoviePublic{
-        
-    }
-
-    public static class GenrePublic{
+    public static class MoviePublic {
 
     }
 
-    public static class GenreInternal extends GenrePublic{
-        
+    public static class MovieInternal extends MoviePublic {
+
+    }
+
+    public static class GenrePublic {
+
+    }
+
+    public static class GenreInternal extends GenrePublic {
+
     }
 }

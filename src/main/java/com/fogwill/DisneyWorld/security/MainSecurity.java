@@ -15,14 +15,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class MainSecurity extends WebSecurityConfigurerAdapter{
+public class MainSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsService userDetailsService;
@@ -31,51 +30,38 @@ public class MainSecurity extends WebSecurityConfigurerAdapter{
     JwtEntryPoint jwtEntryPoint;
 
     @Bean
-    public JwtTokenFilter jwtTokenFilter(){
+    public JwtTokenFilter jwtTokenFilter() {
         return new JwtTokenFilter();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
-    protected void configure (AuthenticationManagerBuilder auth) throws Exception{
-    auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        auth.inMemoryAuthentication()
-         .passwordEncoder(encoder)
-         .withUser("spring")
-         .password(encoder.encode("secret"))
-         .roles("USER");
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception{
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
     @Override
-    protected AuthenticationManager authenticationManager() throws Exception{
+    protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http.cors().and().csrf().disable()
-            .authorizeRequests()
-            .antMatchers("/auth/**").permitAll()
-            .anyRequest().authenticated()
-            .and().exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
-            .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/auth/**").permitAll().anyRequest()
+                .authenticated().and().exceptionHandling().authenticationEntryPoint(jwtEntryPoint).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }
 
-   
 }
-
-    
-

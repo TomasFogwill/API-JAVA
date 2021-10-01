@@ -12,45 +12,41 @@ import com.fogwill.DisneyWorld.views.Views;
 @Entity
 @Table(name = "movie")
 public class Movie {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class,Views.GenrePublic.class})
+    @JsonView({ Views.CharacterPublic.class, Views.MoviePublic.class, Views.GenrePublic.class })
     private Long id;
-    
-    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class,Views.GenrePublic.class})
+
+    @JsonView({ Views.CharacterPublic.class, Views.MoviePublic.class, Views.GenrePublic.class })
     private String image;
 
-    @JsonView({Views.CharacterPublic.class,Views.MoviePublic.class,Views.GenrePublic.class})
+    @JsonView({ Views.CharacterPublic.class, Views.MoviePublic.class, Views.GenrePublic.class })
     private String title;
 
-    @JsonView({Views.CharacterInternal.class,Views.MoviePublic.class,Views.GenreInternal.class})
+    @JsonView({ Views.CharacterInternal.class, Views.MoviePublic.class, Views.GenreInternal.class })
     private LocalDate date;
 
-    @JsonView({Views.CharacterInternal.class,Views.MoviePublic.class,Views.GenreInternal.class})
+    @JsonView({ Views.CharacterInternal.class, Views.MoviePublic.class, Views.GenreInternal.class })
     private float calification;
 
     @JsonView(Views.MoviePublic.class)
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
-    
-      
+
     @ManyToMany(mappedBy = "filmography")
     @JsonView(Views.MoviePublic.class)
-    private Set<CharacterModel> associatedCharacters=new HashSet<>();
-    
+    private Set<CharacterModel> associatedCharacters = new HashSet<>();
 
     public Long getId() {
         return this.id;
     }
 
-
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public String getImage() {
         return this.image;
@@ -92,5 +88,4 @@ public class Movie {
         this.associatedCharacters = associatedCharacters;
     }
 
-    
 }
