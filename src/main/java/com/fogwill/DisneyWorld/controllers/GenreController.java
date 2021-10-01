@@ -8,6 +8,7 @@ import com.fogwill.DisneyWorld.services.GenreService;
 import com.fogwill.DisneyWorld.views.Views;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,7 @@ public class GenreController {
         return genreService.getGenres();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @JsonView(Views.GenreInternal.class)
     @PostMapping
     public Genre saveGenre(@RequestBody Genre genre){

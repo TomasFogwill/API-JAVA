@@ -9,6 +9,7 @@ import com.fogwill.DisneyWorld.services.MovieService;
 import com.fogwill.DisneyWorld.views.Views;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class MovieController {
      return movieService.getMovies();   
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @JsonView(Views.MovieInternal.class)
     @PostMapping
     public Movie saveMovie(@RequestBody Movie movie){
@@ -66,6 +68,7 @@ public class MovieController {
         return this.movieService.getById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(path = "/{id}")
     public String deleteById(@PathVariable("id") Long id){
         boolean ok = this.movieService.deleteMovie(id);
