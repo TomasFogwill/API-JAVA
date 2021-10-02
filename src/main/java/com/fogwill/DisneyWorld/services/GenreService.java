@@ -20,5 +20,14 @@ public class GenreService {
     public Genre saveGenre(Genre genre) {
         return genreRepository.save(genre);
     }
+    
+    public boolean deleteMovie(Long id) {
+        try {
+            genreRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
 }

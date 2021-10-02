@@ -9,7 +9,9 @@ import com.fogwill.DisneyWorld.views.Views;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,17 @@ public class GenreController {
     @PostMapping
     public Genre saveGenre(@RequestBody Genre genre) {
         return genreService.saveGenre(genre);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping(path = "/{id}")
+    public String deleteById(@PathVariable("id") Long id) {
+        boolean ok = this.genreService.deleteMovie(id);
+        if (ok) {
+            return "Se elimino el género de id: " + id;
+        } else {
+            return "No se pudo eliminar el género de id: " + id;
+        }
     }
 
 }

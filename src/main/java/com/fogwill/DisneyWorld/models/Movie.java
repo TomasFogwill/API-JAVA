@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fogwill.DisneyWorld.views.Views;
@@ -29,6 +31,8 @@ public class Movie {
     private LocalDate date;
 
     @JsonView({ Views.CharacterInternal.class, Views.MoviePublic.class, Views.GenreInternal.class })
+    @Max(5)
+    @Min(0)
     private float calification;
 
     @JsonView(Views.MoviePublic.class)
